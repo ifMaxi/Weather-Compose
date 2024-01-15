@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name" translatable="false">Weather</string>
+    <string name="current_forecast" translatable="false">Current weather</string>
+    <string name="extended_forecast">Extended forecast</string>
+    <string name="connection_problems" translatable="false">Oops... something\'s wrong.</string>
+    <string name="current">Current</string>,
+    <string name="day_forecast">Extended</string>
+    <string name="weather_search_screen">Search</string>
+    <string name="provide_query">Please enter a location.</string>
+    <string name="enter_location">Enter location</string>
+
+    <string name="overview">Overview</string>
+    <string name="humidity">Humidity</string>
+    <string name="uv">UV</string>
+    <string name="wind_km">Wind</string>
+    <string name="tomorrow">Tomorrow</string>
+</resources>
