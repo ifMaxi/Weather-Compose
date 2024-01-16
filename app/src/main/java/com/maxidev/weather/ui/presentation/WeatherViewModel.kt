@@ -9,6 +9,7 @@ import com.maxidev.weather.data.datasource.repository.WeatherRepositoryImpl
 import com.maxidev.weather.utils.Constants.DEFAULT_CITY
 import com.maxidev.weather.utils.Constants.THREE_DAYS
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -33,12 +34,13 @@ class WeatherViewModel @Inject constructor(
     }
 
     init {
-        getWeather(DEFAULT_CITY)
+        getWeather()
     }
 
-    fun getWeather(query: String) {
+    fun getWeather(query: String = DEFAULT_CITY) {
         viewModelScope.launch {
             _uiState.value = WeatherStatus.Loading
+            delay(2500)
             _uiState.value = try {
                 WeatherStatus.Success(
                     onSuccess = repositoryImpl.repoWeather(
