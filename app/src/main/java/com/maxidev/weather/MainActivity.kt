@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.maxidev.weather.ui.presentation.WeatherScreen
+import com.maxidev.weather.navigation.NavGraph
 import com.maxidev.weather.ui.theme.WeatherTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,8 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    //NavGraph()
-                    WeatherScreen()
+                    NavGraph()
                 }
             }
         }
