@@ -7,13 +7,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
@@ -138,7 +134,7 @@ fun CurrentConditions(
         verticalAlignment = Alignment.CenterVertically
     ) {
         conditions.forEach { cond ->
-            Card(
+            OutlinedCard(
                 modifier = Modifier
                     .padding(4.dp)
                     .size(120.dp),
@@ -174,35 +170,62 @@ fun CardTimeConditions(
     icon: String,
     temp: String,
     hour: String,
+    precipitationChance: String,
     modifier: Modifier = Modifier
 ) {
     OutlinedCard(
         modifier = modifier
-            .padding(6.dp)
-            .size(width = 80.dp, height = 135.dp),
+            .padding(6.dp),
         elevation = CardDefaults.cardElevation(8.dp)
     ) {
-        Column(
+        Row(
             modifier = Modifier
-                .fillMaxSize()
                 .padding(4.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceAround
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Text(
-                text = hour,
-                style = MaterialTheme.typography.bodyMedium
-            )
-            WeatherIcons(
-                icon = icon,
-                size = DpSize(80.dp, 80.dp)
-            )
-            Text(
-                text = "$temp°C",
-                style = MaterialTheme.typography.bodyMedium,
+            Box(
                 modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-            )
+                    .padding(4.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(
+                    modifier = Modifier
+                        .padding(4.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    Text(
+                        text = hour,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    WeatherIcons(
+                        icon = icon,
+                        size = DpSize(60.dp, 60.dp)
+                    )
+                }
+            }
+            Box(
+                modifier = Modifier
+                    .padding(4.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(
+                    modifier = Modifier
+                        .padding(4.dp),
+                    horizontalAlignment = Alignment.End,
+                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    Text(
+                        text = "$temp°C",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Text(
+                        text = "$precipitationChance%",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            }
         }
     }
 }
@@ -217,64 +240,73 @@ fun NextDaysComponent(
     rainPercent: String,
     modifier: Modifier = Modifier
 ) {
-    Card(
+    OutlinedCard(
         modifier = modifier
-            .height(150.dp)
-            .padding(6.dp),
+            .padding(10.dp),
         elevation = CardDefaults.cardElevation(8.dp)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(4.dp),
-            horizontalArrangement = Arrangement.Start,
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            WeatherIcons(
-                icon = icon,
-                size = DpSize(width = 100.dp, height = 100.dp)
-            )
-            Column(
+            Box(
                 modifier = Modifier
-                    .fillMaxSize()
                     .padding(4.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.SpaceAround
+                contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = date,
-                    style = MaterialTheme.typography.titleMedium,
+                Column(
                     modifier = Modifier
-                        .align(Alignment.Start)
-                )
-                Row(
-                    modifier = Modifier
-                        .width(240.dp)
                         .padding(4.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
+                    horizontalAlignment = Alignment.Start,
+                    verticalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
                     Text(
-                        text = "$minTemp°/$maxTemp°",
-                        style = MaterialTheme.typography.bodyLarge
+                        text = date,
+                        style = MaterialTheme.typography.titleMedium
                     )
-                    Spacer(modifier = Modifier.weight(1f))
-                    Image(
-                        painter = painterResource(id = R.drawable.rain),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(30.dp)
-                    )
-                    Spacer(modifier = Modifier.width(6.dp))
                     Text(
-                        text = "$rainPercent %",
-                        style = MaterialTheme.typography.bodyLarge
+                        text = condition,
+                        style = MaterialTheme.typography.bodySmall
                     )
                 }
-                Text(
-                    text = condition,
-                    style = MaterialTheme.typography.bodyMedium
+            }
+            Box(
+                modifier = Modifier
+                    .padding(4.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                WeatherIcons(
+                    icon = icon,
+                    size = DpSize(70.dp, 70.dp)
                 )
+            }
+            Box(
+                modifier = Modifier
+                    .padding(4.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(
+                    modifier = Modifier
+                        .padding(4.dp),
+                    horizontalAlignment = Alignment.End,
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Text(
+                        text = maxTemp,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                    Text(
+                        text = minTemp,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                    Text(
+                        text = "$rainPercent %",
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
             }
         }
     }

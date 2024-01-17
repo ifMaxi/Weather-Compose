@@ -44,8 +44,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.maxidev.weather.R
 import com.maxidev.weather.data.netwotk.model.Weather
 import com.maxidev.weather.ui.presentation.components.CardTimeConditions
@@ -69,7 +69,7 @@ import java.util.Locale
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WeatherScreen(
-    viewModel: WeatherViewModel = viewModel()
+    viewModel: WeatherViewModel = hiltViewModel()
 ) {
     var query = viewModel.search.value
     var active by remember { mutableStateOf(false) }
@@ -88,11 +88,12 @@ fun WeatherScreen(
                 SearchBar(
                     modifier = Modifier.align(Alignment.TopCenter),
                     query = query,
-                    onQueryChange = { viewModel.onSearchChange(it) },
+                    onQueryChange = viewModel::onSearchChange,
                     onSearch = {
                         scope.launch {
                             if (query.isEmpty()) {
                                 toast.show()
+                                active = false
                             } else {
                                 active = false
                                 viewModel.getWeather(it)
@@ -144,17 +145,25 @@ fun WeatherScreen(
             }
         }
     ) { paddingValues ->
-        StatusCheck(status = uiState, modifier = Modifier.padding(paddingValues))
+        StatusCheck(
+            status = uiState,
+            onClick = { viewModel.getWeather() },
+            modifier = Modifier.padding(paddingValues)
+        )
     }
 }
 
 @Composable
 private fun StatusCheck(
     modifier: Modifier = Modifier,
-    status: WeatherStatus
+    status: WeatherStatus,
+    onClick: () -> Unit
 ) {
     when (status) {
-        is WeatherStatus.Error -> ErrorScreen(errorText = R.string.connection_problems)
+        is WeatherStatus.Error -> ErrorScreen(
+            errorText = R.string.connection_lost,
+            onClick = onClick
+        )
         is WeatherStatus.Loading -> LoadingScreen()
         is WeatherStatus.Success -> WeatherInfo(
             weather = status.onSuccess,
@@ -220,6 +229,7 @@ fun WeatherInfo(
                     CardTimeConditions(
                         icon = hour.condition.icon,
                         temp = hour.tempC.toString(),
+                        precipitationChance = hour.chanceOfRain.toString(),
                         hour = it
                     )
                 }
