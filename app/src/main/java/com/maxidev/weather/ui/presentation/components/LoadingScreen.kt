@@ -35,7 +35,7 @@ fun LoadingScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-                LottieAnimation(
+        LottieAnimation(
             composition = composition,
             progress = { progress },
             modifier = Modifier
