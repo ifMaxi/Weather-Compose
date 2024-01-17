@@ -51,7 +51,7 @@ val Typography = Typography(
     ),
     titleMedium = TextStyle(
         fontFamily = montserratFamily,
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.Normal,
         fontSize = 24.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
