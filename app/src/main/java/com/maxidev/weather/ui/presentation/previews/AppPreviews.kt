@@ -4,6 +4,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import com.maxidev.weather.R
 import com.maxidev.weather.ui.presentation.WeatherIconAndTemps
+import com.maxidev.weather.ui.presentation.WeatherStartScreen
 import com.maxidev.weather.ui.presentation.components.CardTimeConditions
 import com.maxidev.weather.ui.presentation.components.CityName
 import com.maxidev.weather.ui.presentation.components.CurrentConditions
@@ -68,7 +69,8 @@ private fun CardTimePreview() {
             CardTimeConditions(
                 icon = "Icon",
                 temp = "28.7",
-                hour = "17"
+                hour = "17",
+                precipitationChance = "70"
             )
         }
     }
@@ -87,6 +89,16 @@ private fun NextDayPreview() {
                 condition = "Sunny",
                 rainPercent = "2"
             )
+        }
+    }
+}
+
+@ThemePreview
+@Composable
+private fun AnimationLottiePreview() {
+    WeatherTheme {
+        Surface {
+            WeatherStartScreen(onClick = {})
         }
     }
 }
