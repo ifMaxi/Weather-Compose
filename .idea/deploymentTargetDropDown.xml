@@ -38,7 +38,20 @@
         </State>
       </entry>
       <entry key="NextDayPreview">
-        <State />
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\maxi9\.android\avd\Pixel_7_Pro_API_34.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-01-16T17:16:24.231414200Z" />
+        </State>
       </entry>
       <entry key="app">
         <State>
@@ -53,7 +66,7 @@
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-01-14T21:28:43.966769600Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-01-17T00:11:51.894688300Z" />
         </State>
       </entry>
     </value>
