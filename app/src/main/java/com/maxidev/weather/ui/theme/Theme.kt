@@ -32,7 +32,7 @@ private val LightColors = lightColorScheme(
     errorContainer = md_theme_light_errorContainer,
     onError = md_theme_light_onError,
     onErrorContainer = md_theme_light_onErrorContainer,
-    background = md_theme_light_background,
+    background = white,
     onBackground = md_theme_light_onBackground,
     surface = md_theme_light_surface,
     onSurface = md_theme_light_onSurface,
@@ -65,7 +65,7 @@ private val DarkColors = darkColorScheme(
     errorContainer = md_theme_dark_errorContainer,
     onError = md_theme_dark_onError,
     onErrorContainer = md_theme_dark_onErrorContainer,
-    background = md_theme_dark_background,
+    background = black,
     onBackground = md_theme_dark_onBackground,
     surface = md_theme_dark_surface,
     onSurface = md_theme_dark_onSurface,
@@ -100,7 +100,7 @@ fun WeatherTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.surface.toArgb()
+            window.statusBarColor = colorScheme.background.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
             WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars = !darkTheme
         }
