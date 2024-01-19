@@ -1,6 +1,5 @@
 package com.maxidev.weather.ui.presentation.components
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,6 +21,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import com.maxidev.weather.R
+
+/**
+ * This file contains all the components that will be seen on the main screen.
+ */
 
 // It will show the current location either by default or using the search bar.
 // By DEFAULT, a city name will be set.
@@ -93,26 +96,7 @@ fun WeatherCondition(
     }
 }
 
-// Title to describe the hours of the day.
-@Composable
-fun OverviewWeather(
-    modifier: Modifier = Modifier,
-    @StringRes overview: Int
-) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(4.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Start
-    ) {
-        Text(
-            text = stringResource(id = overview),
-            style = MaterialTheme.typography.titleLarge
-        )
-    }
-}
-
+// A row that will show data for some conditions.
 @Composable
 fun CurrentConditions(
     modifier: Modifier = Modifier,
@@ -122,7 +106,7 @@ fun CurrentConditions(
 ) {
     val conditions: List<Triple<String, Int, Int>> = listOf(
         Triple("$wind km", R.drawable.wind, R.string.wind_km),
-        Triple(uv, R.drawable.indice, R.string.uv),
+        Triple(uv, R.drawable.uv, R.string.uv),
         Triple("$humidity %", R.drawable.humidity, R.string.humidity)
     )
 
@@ -165,6 +149,8 @@ fun CurrentConditions(
     }
 }
 
+// Component to be displayed using a "LazyLayout".
+// Its main function is to display some data for each hour of the day.
 @Composable
 fun CardTimeConditions(
     icon: String,
@@ -178,11 +164,11 @@ fun CardTimeConditions(
             .padding(6.dp),
         elevation = CardDefaults.cardElevation(8.dp)
     ) {
-        Row(
+        Column(
             modifier = Modifier
                 .padding(4.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(2.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Box(
                 modifier = Modifier
@@ -201,7 +187,7 @@ fun CardTimeConditions(
                     )
                     WeatherIcons(
                         icon = icon,
-                        size = DpSize(60.dp, 60.dp)
+                        size = DpSize(70.dp, 70.dp)
                     )
                 }
             }
@@ -213,7 +199,7 @@ fun CardTimeConditions(
                 Column(
                     modifier = Modifier
                         .padding(4.dp),
-                    horizontalAlignment = Alignment.End,
+                    horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
                     Text(
@@ -230,6 +216,7 @@ fun CardTimeConditions(
     }
 }
 
+// It will show some data for the next day.
 @Composable
 fun NextDaysComponent(
     icon: String,
@@ -295,16 +282,16 @@ fun NextDaysComponent(
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Text(
-                        text = maxTemp,
-                        style = MaterialTheme.typography.bodySmall
+                        text = "$maxTemp°",
+                        style = MaterialTheme.typography.bodyMedium
                     )
                     Text(
-                        text = minTemp,
-                        style = MaterialTheme.typography.bodySmall
+                        text = "$minTemp°",
+                        style = MaterialTheme.typography.bodyMedium
                     )
                     Text(
                         text = "$rainPercent %",
-                        style = MaterialTheme.typography.bodySmall
+                        style = MaterialTheme.typography.bodyMedium
                     )
                 }
             }

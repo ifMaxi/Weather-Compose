@@ -55,7 +55,7 @@ import com.maxidev.weather.ui.presentation.components.ErrorScreen
 import com.maxidev.weather.ui.presentation.components.LoadingScreen
 import com.maxidev.weather.ui.presentation.components.MaxAndFeelsTemperature
 import com.maxidev.weather.ui.presentation.components.NextDaysComponent
-import com.maxidev.weather.ui.presentation.components.OverviewWeather
+import com.maxidev.weather.ui.presentation.components.SectionsWeather
 import com.maxidev.weather.ui.presentation.components.WeatherCondition
 import com.maxidev.weather.ui.presentation.components.WeatherIcons
 import com.maxidev.weather.utils.Constants
@@ -207,7 +207,7 @@ fun WeatherInfo(
             )
         }
         Spacer(modifier = Modifier.height(22.dp))
-        OverviewWeather(overview = R.string.overview)
+        SectionsWeather(overview = R.string.overview)
         LazyRow(
             modifier = Modifier
                 .fillMaxSize()
@@ -221,7 +221,7 @@ fun WeatherInfo(
 
             items(hourList) { hour ->
                 val originalFormat = SimpleDateFormat("yyyy-MM-dd HH:mm")
-                val formatData = SimpleDateFormat("HH:mm")
+                val formatData = SimpleDateFormat("HH")
                 val parseDate: Date? = originalFormat.parse(hour.time)
                 val parsedData = parseDate?.let { formatData.format(it) }
 
@@ -230,13 +230,13 @@ fun WeatherInfo(
                         icon = hour.condition.icon,
                         temp = hour.tempC.toString(),
                         precipitationChance = hour.chanceOfRain.toString(),
-                        hour = it
+                        hour = "$it Hr."
                     )
                 }
             }
         }
         Spacer(modifier = Modifier.height(22.dp))
-        OverviewWeather(overview = R.string.tomorrow)
+        SectionsWeather(overview = R.string.tomorrow)
         weather.forecast.forecastday[1].let { data ->
             NextDaysComponent(
                 icon = data.day.condition.icon,
