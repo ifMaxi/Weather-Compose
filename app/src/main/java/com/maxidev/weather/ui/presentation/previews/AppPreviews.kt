@@ -9,7 +9,7 @@ import com.maxidev.weather.ui.presentation.components.CardTimeConditions
 import com.maxidev.weather.ui.presentation.components.CityName
 import com.maxidev.weather.ui.presentation.components.CurrentConditions
 import com.maxidev.weather.ui.presentation.components.NextDaysComponent
-import com.maxidev.weather.ui.presentation.components.OverviewWeather
+import com.maxidev.weather.ui.presentation.components.SectionsWeather
 import com.maxidev.weather.ui.theme.WeatherTheme
 
 @ThemePreview
@@ -42,7 +42,7 @@ private fun IconsTempPreview() {
 private fun OverviewPreview() {
     WeatherTheme {
         Surface {
-            OverviewWeather(overview = R.string.overview)
+            SectionsWeather(overview = R.string.overview)
         }
     }
 }
