@@ -8,6 +8,7 @@ import androidx.compose.foundation.gestures.FlingBehavior
 import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -185,67 +186,71 @@ fun WeatherInfo(
     val str = date.getDisplayName(TextStyle.FULL, Locale("us"))
     val dateNumber = LocalDate.now().dayOfMonth.plus(1)
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(4.dp)
-            .verticalScroll(scrollState),
-        verticalArrangement = Arrangement.spacedBy(4.dp)
-    ) {
-        CityName(city = weather.location.name)
-        weather.current.let { info ->
-            WeatherIconAndTemps(
-                icon = info.condition.icon,
-                maxTemp = info.tempC.toString(),
-                feelsLike = info.feelslikeC.toString(),
-                condition = info.condition.text
-            )
-            CurrentConditions(
-                uv = info.uv.toString(),
-                wind = info.windKph.toString(),
-                humidity = info.humidity.toString()
-            )
-        }
-        Spacer(modifier = Modifier.height(22.dp))
-        SectionsWeather(overview = R.string.overview)
-        LazyRow(
+    BoxWithConstraints(modifier) {
+        val boxWithConstraintsScope = this
+
+        Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(4.dp),
-            state = lazyState,
-            flingBehavior = fling,
-            horizontalArrangement = Arrangement.Start,
-            verticalAlignment = Alignment.CenterVertically
+                .verticalScroll(scrollState)
         ) {
-            val hourList = weather.forecast.forecastday[0].hour
+            if (boxWithConstraintsScope.maxHeight >= 200.dp) {
+                CityName(city = weather.location.name)
+                weather.current.let { info ->
+                    WeatherIconAndTemps(
+                        icon = info.condition.icon,
+                        maxTemp = info.tempC.toString(),
+                        feelsLike = info.feelslikeC.toString(),
+                        condition = info.condition.text
+                    )
+                    CurrentConditions(
+                        uv = info.uv.toString(),
+                        wind = info.windKph.toString(),
+                        humidity = info.humidity.toString()
+                    )
+                }
+                Spacer(modifier = Modifier.height(22.dp))
+                SectionsWeather(overview = R.string.overview)
+                LazyRow(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(4.dp),
+                    state = lazyState,
+                    flingBehavior = fling,
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    val hourList = weather.forecast.forecastday[0].hour
 
-            items(hourList) { hour ->
-                val originalFormat = SimpleDateFormat("yyyy-MM-dd HH:mm")
-                val formatData = SimpleDateFormat("HH")
-                val parseDate: Date? = originalFormat.parse(hour.time)
-                val parsedData = parseDate?.let { formatData.format(it) }
+                    items(hourList) { hour ->
+                        val originalFormat = SimpleDateFormat("yyyy-MM-dd HH:mm")
+                        val formatData = SimpleDateFormat("HH")
+                        val parseDate: Date? = originalFormat.parse(hour.time)
+                        val parsedData = parseDate?.let { formatData.format(it) }
 
-                parsedData?.let {
-                    CardTimeConditions(
-                        icon = hour.condition.icon,
-                        temp = hour.tempC.toString(),
-                        precipitationChance = hour.chanceOfRain.toString(),
-                        hour = "$it Hr."
+                        parsedData?.let {
+                            CardTimeConditions(
+                                icon = hour.condition.icon,
+                                temp = hour.tempC.toString(),
+                                precipitationChance = hour.chanceOfRain.toString(),
+                                hour = "$it Hr."
+                            )
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.height(22.dp))
+                SectionsWeather(overview = R.string.tomorrow)
+                weather.forecast.forecastday[1].let { data ->
+                    NextDaysComponent(
+                        icon = data.day.condition.icon,
+                        minTemp = data.day.mintempC.toString(),
+                        maxTemp = data.day.maxtempC.toString(),
+                        date = "$str, $dateNumber",
+                        condition = data.day.condition.text,
+                        rainPercent = data.day.dailyChanceOfRain.toString()
                     )
                 }
             }
-        }
-        Spacer(modifier = Modifier.height(22.dp))
-        SectionsWeather(overview = R.string.tomorrow)
-        weather.forecast.forecastday[1].let { data ->
-            NextDaysComponent(
-                icon = data.day.condition.icon,
-                minTemp = data.day.mintempC.toString(),
-                maxTemp = data.day.maxtempC.toString(),
-                date = "$str, $dateNumber",
-                condition = data.day.condition.text,
-                rainPercent = data.day.dailyChanceOfRain.toString()
-            )
         }
     }
 }
