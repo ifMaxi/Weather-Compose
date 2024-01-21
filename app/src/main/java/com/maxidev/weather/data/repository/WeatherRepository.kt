@@ -1,4 +1,4 @@
-package com.maxidev.weather.data.datasource.repository
+package com.maxidev.weather.data.repository
 
 import com.maxidev.weather.data.netwotk.model.Weather
 

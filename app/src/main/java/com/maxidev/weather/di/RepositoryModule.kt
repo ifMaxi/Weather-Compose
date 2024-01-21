@@ -1,8 +1,8 @@
 package com.maxidev.weather.di
 
 import com.maxidev.weather.data.datasource.WeatherDataSource
-import com.maxidev.weather.data.datasource.repository.WeatherRepository
-import com.maxidev.weather.data.datasource.repository.WeatherRepositoryImpl
+import com.maxidev.weather.data.repository.WeatherRepository
+import com.maxidev.weather.data.repository.WeatherRepositoryImpl
 import com.maxidev.weather.data.netwotk.remote.ApiService
 import dagger.Module
 import dagger.Provides

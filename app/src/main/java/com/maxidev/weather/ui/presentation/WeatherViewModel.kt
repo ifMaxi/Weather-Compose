@@ -5,7 +5,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maxidev.weather.data.datasource.repository.WeatherRepositoryImpl
+import com.maxidev.weather.data.repository.WeatherRepositoryImpl
 import com.maxidev.weather.utils.Constants.DEFAULT_CITY
 import com.maxidev.weather.utils.Constants.THREE_DAYS
 import dagger.hilt.android.lifecycle.HiltViewModel
