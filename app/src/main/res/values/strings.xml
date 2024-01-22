@@ -12,6 +12,10 @@
     <string name="uv">UV</string>
     <string name="wind_km">Wind</string>
     <string name="tomorrow">Tomorrow</string>
+    <string name="astro">Dawn / Dusk</string>
+    <string name="clouds">Cloud</string>
+    <string name="pressure">Pressure</string>
+    <string name="precipitation">Precipitation</string>
 
     <!-- Start screen-->
     <string name="welcome_to_weather">Welcome to Weather Compose!</string>
