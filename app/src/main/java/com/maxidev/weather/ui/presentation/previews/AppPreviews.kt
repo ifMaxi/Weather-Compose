@@ -55,7 +55,10 @@ private fun CurrentConditionsPreview() {
             CurrentConditions(
                 uv = "7",
                 wind = "12.5",
-                humidity = "48"
+                humidity = "48",
+                cloudCover = "",
+                pressure = "",
+                precipitation = ""
             )
         }
     }

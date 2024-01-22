@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -55,13 +54,11 @@ fun WeatherStartScreen(
                 .size(260.dp)
         )
         Text(
-            text = stringResource(id = R.string.welcome),
-            style = MaterialTheme.typography.titleMedium
+            text = stringResource(id = R.string.welcome)
         )
         Text(
             text = stringResource(id = R.string.information_welcome_text),
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.titleMedium
+            textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.weight(1f))
         Box(
@@ -72,8 +69,7 @@ fun WeatherStartScreen(
         ) {
             Text(
                 text = ClimatePhrases.listOfPhrases,
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodySmall
+                textAlign = TextAlign.Center
             )
         }
     }

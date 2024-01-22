@@ -1,21 +1,29 @@
 package com.maxidev.weather.ui.presentation.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.CardDefaults
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.DpSize
@@ -41,8 +49,7 @@ fun CityName(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = city,
-            style = MaterialTheme.typography.headlineSmall
+            text = city
         )
     }
 }
@@ -65,12 +72,11 @@ fun MaxAndFeelsTemperature(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "$maxTemp°C",
-                style = MaterialTheme.typography.headlineSmall
+                text = "$maxTemp°C"
             )
             Text(
-                text = "Feels Like: $feelsLike°C",
-                style = MaterialTheme.typography.bodySmall
+                text = "Feels Like: $feelsLike°C"
+
             )
         }
     }
@@ -90,8 +96,7 @@ fun WeatherCondition(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = condition,
-            style = MaterialTheme.typography.bodyLarge
+            text = condition
         )
     }
 }
@@ -102,48 +107,66 @@ fun CurrentConditions(
     modifier: Modifier = Modifier,
     uv: String,
     wind: String,
-    humidity: String
+    humidity: String,
+    cloudCover: String,
+    pressure: String,
+    precipitation: String,
 ) {
+    val lazyState = rememberLazyGridState()
     val conditions: List<Triple<String, Int, Int>> = listOf(
         Triple("$wind km", R.drawable.wind, R.string.wind_km),
         Triple(uv, R.drawable.uv, R.string.uv),
-        Triple("$humidity %", R.drawable.humidity, R.string.humidity)
+        Triple("$humidity %", R.drawable.humidity, R.string.humidity),
+        Triple("$cloudCover%", R.drawable.overcast, R.string.clouds),
+        Triple("$pressure mBar", R.drawable.pressure, R.string.pressure),
+        Triple("$precipitation mm", R.drawable.precipitation, R.string.precipitation)
     )
+    val shape = RoundedCornerShape(10)
 
-    Row(
+    LazyHorizontalGrid(
         modifier = modifier
             .fillMaxWidth()
-            .padding(4.dp),
-        horizontalArrangement = Arrangement.SpaceAround,
-        verticalAlignment = Alignment.CenterVertically
+            .heightIn(min = 0.dp, max = 240.dp)
+            .shadow(elevation = 6.dp, shape = shape)
+            .clip(shape = shape)
+            .background(MaterialTheme.colorScheme.surfaceVariant),
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalArrangement = Arrangement.Center,
+        rows = GridCells.Fixed(2),
+        state = lazyState
     ) {
-        conditions.forEach { cond ->
-            OutlinedCard(
+        items(conditions) { cond ->
+            Box(
                 modifier = Modifier
-                    .padding(4.dp)
-                    .size(120.dp),
-                elevation = CardDefaults.cardElevation(8.dp)
+                    .padding(4.dp),
+                contentAlignment = Alignment.Center
             ) {
-                Spacer(modifier = Modifier.weight(1f))
-                Image(
-                    painter = painterResource(id = cond.second),
-                    contentDescription = null,
+                Column(
                     modifier = Modifier
-                        .size(40.dp)
-                        .align(Alignment.CenterHorizontally)
-                )
-                Spacer(modifier = Modifier.weight(1f))
-                Text(
-                    text = cond.first,
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    style = MaterialTheme.typography.bodySmall
-                )
-                Text(
-                    text = stringResource(id = cond.third),
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    style = MaterialTheme.typography.bodySmall
-                )
-                Spacer(modifier = Modifier.weight(1f))
+                        .padding(4.dp)
+                        .size(100.dp),
+                    verticalArrangement = Arrangement.SpaceEvenly,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Spacer(modifier = Modifier.weight(1f))
+                    Image(
+                        painter = painterResource(id = cond.second),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(40.dp)
+                            .align(Alignment.CenterHorizontally)
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    Text(
+                        text = cond.first,
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                    )
+                    Text(
+                        text = stringResource(id = cond.third),
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                }
             }
         }
     }
@@ -159,60 +182,32 @@ fun CardTimeConditions(
     precipitationChance: String,
     modifier: Modifier = Modifier
 ) {
-    OutlinedCard(
+    val shape = RoundedCornerShape(10)
+
+    Column(
         modifier = modifier
-            .padding(6.dp),
-        elevation = CardDefaults.cardElevation(8.dp)
+            .padding(10.dp)
+            .shadow(elevation = 6.dp, shape = shape)
+            .clip(shape = shape)
+            .background(MaterialTheme.colorScheme.surfaceVariant)
+            .size(height = 140.dp, width = 90.dp),
+        verticalArrangement = Arrangement.spacedBy(4.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column(
-            modifier = Modifier
-                .padding(4.dp),
-            verticalArrangement = Arrangement.spacedBy(2.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Box(
-                modifier = Modifier
-                    .padding(4.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Column(
-                    modifier = Modifier
-                        .padding(4.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(6.dp)
-                ) {
-                    Text(
-                        text = hour,
-                        style = MaterialTheme.typography.titleMedium
-                    )
-                    WeatherIcons(
-                        icon = icon,
-                        size = DpSize(70.dp, 70.dp)
-                    )
-                }
-            }
-            Box(
-                modifier = Modifier
-                    .padding(4.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Column(
-                    modifier = Modifier
-                        .padding(4.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(6.dp)
-                ) {
-                    Text(
-                        text = "$temp°C",
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                    Text(
-                        text = "$precipitationChance%",
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                }
-            }
-        }
+        Text(
+            text = hour
+        )
+        Spacer(modifier = Modifier.weight(1f))
+        WeatherIcons(
+            icon = icon,
+            size = DpSize(50.dp, 50.dp)
+        )
+        Text(
+            text = "$temp°"
+        )
+        Text(
+            text = "$precipitationChance%"
+        )
     }
 }
 
@@ -227,71 +222,122 @@ fun NextDaysComponent(
     rainPercent: String,
     modifier: Modifier = Modifier
 ) {
-    OutlinedCard(
+    val shape = RoundedCornerShape(10)
+
+    Row(
         modifier = modifier
-            .padding(10.dp),
-        elevation = CardDefaults.cardElevation(8.dp)
+            .fillMaxWidth()
+            .shadow(elevation = 6.dp, shape = shape)
+            .clip(shape = shape)
+            .background(MaterialTheme.colorScheme.surfaceVariant),
+            //.padding(4.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
+            modifier = Modifier
+                .padding(4.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                modifier = Modifier
+                    .padding(4.dp),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
+                Text(
+                    text = date
+                )
+                Text(
+                    text = condition
+                )
+            }
+        }
+        Spacer(modifier = Modifier.weight(1f))
+        Box(
+            modifier = Modifier
+                .padding(4.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            WeatherIcons(
+                icon = icon,
+                size = DpSize(70.dp, 70.dp),
+                modifier = Modifier
+            )
+        }
+        Box(
+            modifier = Modifier
+                .padding(4.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                modifier = Modifier
+                    .padding(4.dp),
+                horizontalAlignment = Alignment.End,
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Text(
+                    text = "$maxTemp°"
+                )
+                Text(
+                    text = "$minTemp°"
+                )
+                Text(
+                    text = "$rainPercent %"
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun AstroWeather(
+    sunrise: String,
+    sunset: String,
+    moonrise: String,
+    moonset: String,
+    modifier: Modifier = Modifier
+) {
+    val sunMoon = listOf(
+        Triple("Sunrise", R.drawable.morning, sunrise),
+        Triple("Sunset", R.drawable.afternoon, sunset),
+        Triple("Moonrise", R.drawable.evening, moonrise),
+        Triple("Moonset", R.drawable.nigth, moonset)
+    )
+    val shape = RoundedCornerShape(10)
+
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(120.dp)
+            .shadow(elevation = 6.dp, shape = shape)
+            .clip(shape = shape)
+            .background(MaterialTheme.colorScheme.surfaceVariant),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceAround
     ) {
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(4.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceAround
         ) {
-            Box(
-                modifier = Modifier
-                    .padding(4.dp),
-                contentAlignment = Alignment.Center
-            ) {
+            sunMoon.forEach { cond ->
                 Column(
-                    modifier = Modifier
-                        .padding(4.dp),
-                    horizontalAlignment = Alignment.Start,
+                    horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
                     Text(
-                        text = date,
-                        style = MaterialTheme.typography.titleMedium
+                        text = cond.first
+                    )
+                    Image(
+                        painter = painterResource(id = cond.second),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(40.dp)
                     )
                     Text(
-                        text = condition,
-                        style = MaterialTheme.typography.bodySmall
-                    )
-                }
-            }
-            Box(
-                modifier = Modifier
-                    .padding(4.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                WeatherIcons(
-                    icon = icon,
-                    size = DpSize(70.dp, 70.dp)
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .padding(4.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Column(
-                    modifier = Modifier
-                        .padding(4.dp),
-                    horizontalAlignment = Alignment.End,
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
-                    Text(
-                        text = "$maxTemp°",
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                    Text(
-                        text = "$minTemp°",
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                    Text(
-                        text = "$rainPercent %",
-                        style = MaterialTheme.typography.bodyMedium
+                        text = cond.third
                     )
                 }
             }

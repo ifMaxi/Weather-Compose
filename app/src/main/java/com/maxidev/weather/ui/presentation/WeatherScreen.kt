@@ -28,7 +28,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
@@ -49,6 +48,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maxidev.weather.R
 import com.maxidev.weather.data.netwotk.model.Weather
+import com.maxidev.weather.ui.presentation.components.AstroWeather
 import com.maxidev.weather.ui.presentation.components.CardTimeConditions
 import com.maxidev.weather.ui.presentation.components.CityName
 import com.maxidev.weather.ui.presentation.components.CurrentConditions
@@ -105,8 +105,7 @@ fun WeatherScreen(
                     onActiveChange = { active = true },
                     placeholder = {
                         Text(
-                            text = stringResource(id = R.string.enter_location),
-                            style = MaterialTheme.typography.bodyMedium
+                            text = stringResource(id = R.string.enter_location)
                         )
                     },
                     leadingIcon = {
@@ -127,8 +126,7 @@ fun WeatherScreen(
                                 },
                             headlineContent = {
                                 Text(
-                                    text = location,
-                                    style = MaterialTheme.typography.bodyMedium
+                                    text = location
                                 )
                             },
                             leadingContent = {
@@ -185,6 +183,10 @@ fun WeatherInfo(
     val date = LocalDate.now().dayOfWeek.plus(1)
     val str = date.getDisplayName(TextStyle.FULL, Locale("us"))
     val dateNumber = LocalDate.now().dayOfMonth.plus(1)
+    val originalFormat = SimpleDateFormat("yyyy-MM-dd HH:mm")
+    val formatData = SimpleDateFormat("HH")
+    val hourList = weather.forecast.forecastday[0].hour
+    val lazyHour by remember { mutableStateOf(hourList) }
 
     BoxWithConstraints(modifier) {
         val boxWithConstraintsScope = this
@@ -192,6 +194,7 @@ fun WeatherInfo(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(4.dp)
                 .verticalScroll(scrollState)
         ) {
             if (boxWithConstraintsScope.maxHeight >= 200.dp) {
@@ -206,25 +209,24 @@ fun WeatherInfo(
                     CurrentConditions(
                         uv = info.uv.toString(),
                         wind = info.windKph.toString(),
-                        humidity = info.humidity.toString()
+                        humidity = info.humidity.toString(),
+                        cloudCover = info.cloud.toString(),
+                        pressure = info.pressureMb.toString(),
+                        precipitation = info.precipMm.toString(),
+
                     )
                 }
                 Spacer(modifier = Modifier.height(22.dp))
                 SectionsWeather(overview = R.string.overview)
                 LazyRow(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(4.dp),
+                        .fillMaxWidth(),
                     state = lazyState,
                     flingBehavior = fling,
-                    horizontalArrangement = Arrangement.Start,
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
+                    //horizontalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    val hourList = weather.forecast.forecastday[0].hour
-
-                    items(hourList) { hour ->
-                        val originalFormat = SimpleDateFormat("yyyy-MM-dd HH:mm")
-                        val formatData = SimpleDateFormat("HH")
+                    items(lazyHour) { hour ->
                         val parseDate: Date? = originalFormat.parse(hour.time)
                         val parsedData = parseDate?.let { formatData.format(it) }
 
@@ -233,10 +235,20 @@ fun WeatherInfo(
                                 icon = hour.condition.icon,
                                 temp = hour.tempC.toString(),
                                 precipitationChance = hour.chanceOfRain.toString(),
-                                hour = "$it Hr."
+                                hour = "$it Hr"
                             )
                         }
                     }
+                }
+                Spacer(modifier = Modifier.height(22.dp))
+                SectionsWeather(overview = R.string.astro)
+                weather.forecast.forecastday[1].let { astro ->
+                    AstroWeather(
+                        sunrise = astro.astro.sunrise,
+                        sunset = astro.astro.sunset,
+                        moonrise = astro.astro.moonrise,
+                        moonset = astro.astro.moonset
+                    )
                 }
                 Spacer(modifier = Modifier.height(22.dp))
                 SectionsWeather(overview = R.string.tomorrow)
