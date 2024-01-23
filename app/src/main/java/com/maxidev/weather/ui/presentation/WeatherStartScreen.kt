@@ -17,13 +17,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.maxidev.weather.R
-import com.maxidev.weather.utils.ClimatePhrases
+import com.maxidev.weather.ui.theme.soraFamily
+import com.maxidev.weather.utils.ClimateUtilities
 
 @Composable
 fun WeatherStartScreen(
@@ -54,11 +56,15 @@ fun WeatherStartScreen(
                 .size(260.dp)
         )
         Text(
-            text = stringResource(id = R.string.welcome)
+            text = stringResource(id = R.string.welcome),
+            fontFamily = soraFamily,
+            fontSize = 26.sp
         )
         Text(
             text = stringResource(id = R.string.information_welcome_text),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            fontFamily = soraFamily,
+            fontSize = 20.sp
         )
         Spacer(modifier = Modifier.weight(1f))
         Box(
@@ -68,8 +74,10 @@ fun WeatherStartScreen(
             contentAlignment = Alignment.BottomCenter
         ) {
             Text(
-                text = ClimatePhrases.listOfPhrases,
-                textAlign = TextAlign.Center
+                text = ClimateUtilities.listOfPhrases,
+                textAlign = TextAlign.Center,
+                fontFamily = soraFamily,
+                fontSize = 12.sp
             )
         }
     }

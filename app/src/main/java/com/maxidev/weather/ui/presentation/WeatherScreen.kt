@@ -2,14 +2,14 @@ package com.maxidev.weather.ui.presentation
 
 import android.annotation.SuppressLint
 import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.FlingBehavior
-import androidx.compose.foundation.gestures.ScrollableDefaults
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -44,6 +44,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maxidev.weather.R
@@ -59,13 +60,15 @@ import com.maxidev.weather.ui.presentation.components.NextDaysComponent
 import com.maxidev.weather.ui.presentation.components.SectionsWeather
 import com.maxidev.weather.ui.presentation.components.WeatherCondition
 import com.maxidev.weather.ui.presentation.components.WeatherIcons
-import com.maxidev.weather.utils.Constants
+import com.maxidev.weather.ui.theme.soraFamily
+import com.maxidev.weather.utils.ClimateUtilities.locationList
+import com.maxidev.weather.utils.Constants.TOAST_MESSAGE_PROVIDE_LOCATION
+import com.maxidev.weather.utils.DateTimeUtils.dayOfMonth
+import com.maxidev.weather.utils.DateTimeUtils.dayOfWeek
+import com.maxidev.weather.utils.DateTimeUtils.formatHour
+import com.maxidev.weather.utils.DateTimeUtils.formatOriginal
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.TextStyle
 import java.util.Date
-import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -76,12 +79,8 @@ fun WeatherScreen(
     var active by remember { mutableStateOf(false) }
     val uiState: WeatherStatus by viewModel.uiState.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
-    val toast = Toast.makeText(
-        LocalContext.current,
-        Constants.TOAST_MESSAGE_PROVIDE_LOCATION,
-        Toast.LENGTH_SHORT
-    )
-    val locationList = listOf("Moscow", "Paris", "Buenos Aires", "Las Vegas", "Barcelona")
+    val context = LocalContext.current
+    val toast = Toast.makeText(context, TOAST_MESSAGE_PROVIDE_LOCATION, LENGTH_SHORT)
 
     Scaffold(
         topBar = {
@@ -105,7 +104,9 @@ fun WeatherScreen(
                     onActiveChange = { active = true },
                     placeholder = {
                         Text(
-                            text = stringResource(id = R.string.enter_location)
+                            text = stringResource(id = R.string.enter_location),
+                            fontFamily = soraFamily,
+                            fontSize = 14.sp
                         )
                     },
                     leadingIcon = {
@@ -126,7 +127,9 @@ fun WeatherScreen(
                                 },
                             headlineContent = {
                                 Text(
-                                    text = location
+                                    text = location,
+                                    fontFamily = soraFamily,
+                                    fontSize = 14.sp
                                 )
                             },
                             leadingContent = {
@@ -146,7 +149,7 @@ fun WeatherScreen(
     ) { paddingValues ->
         StatusCheck(
             status = uiState,
-            onClick = { viewModel.getWeather() },
+            onClick = viewModel::getWeather,
             modifier = Modifier.padding(paddingValues)
         )
     }
@@ -179,12 +182,6 @@ fun WeatherInfo(
 ) {
     val scrollState: ScrollState = rememberScrollState()
     val lazyState = rememberLazyListState()
-    val fling: FlingBehavior = ScrollableDefaults.flingBehavior()
-    val date = LocalDate.now().dayOfWeek.plus(1)
-    val str = date.getDisplayName(TextStyle.FULL, Locale("us"))
-    val dateNumber = LocalDate.now().dayOfMonth.plus(1)
-    val originalFormat = SimpleDateFormat("yyyy-MM-dd HH:mm")
-    val formatData = SimpleDateFormat("HH")
     val hourList = weather.forecast.forecastday[0].hour
     val lazyHour by remember { mutableStateOf(hourList) }
 
@@ -222,13 +219,13 @@ fun WeatherInfo(
                     modifier = Modifier
                         .fillMaxWidth(),
                     state = lazyState,
-                    flingBehavior = fling,
+                    contentPadding = PaddingValues(10.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    //horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     items(lazyHour) { hour ->
-                        val parseDate: Date? = originalFormat.parse(hour.time)
-                        val parsedData = parseDate?.let { formatData.format(it) }
+                        val parseDate: Date? = formatOriginal.parse(hour.time)
+                        val parsedData = parseDate?.let { formatHour.format(it) }
 
                         parsedData?.let {
                             CardTimeConditions(
@@ -257,7 +254,7 @@ fun WeatherInfo(
                         icon = data.day.condition.icon,
                         minTemp = data.day.mintempC.toString(),
                         maxTemp = data.day.maxtempC.toString(),
-                        date = "$str, $dateNumber",
+                        date = "$dayOfWeek, $dayOfMonth",
                         condition = data.day.condition.text,
                         rainPercent = data.day.dailyChanceOfRain.toString()
                     )

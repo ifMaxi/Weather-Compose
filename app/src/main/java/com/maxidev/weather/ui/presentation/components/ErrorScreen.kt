@@ -11,7 +11,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
@@ -19,6 +21,7 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.maxidev.weather.R
 import com.maxidev.weather.ui.components.WeatherButton
+import com.maxidev.weather.ui.theme.soraFamily
 
 // Simulates an error screen when you do not have internet access.
 @Composable
@@ -46,7 +49,10 @@ fun ErrorScreen(
             progress = { progress }
         )
         Text(
-            text = stringResource(id = errorText)
+            text = stringResource(id = errorText),
+            fontFamily = soraFamily,
+            fontWeight = FontWeight.Medium,
+            fontSize = 24.sp
         )
         Spacer(modifier = Modifier.weight(1f))
         WeatherButton(

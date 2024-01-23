@@ -13,11 +13,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.CachePolicy
 import coil.request.ImageRequest
+import com.maxidev.weather.ui.theme.soraFamily
 
 /**
  * It contains a series of composables that will be reused in the app.
@@ -67,7 +70,10 @@ fun SectionsWeather(
         horizontalArrangement = Arrangement.Start
     ) {
         Text(
-            text = stringResource(id = overview)
+            text = stringResource(id = overview),
+            fontFamily = soraFamily,
+            fontWeight = FontWeight.Medium,
+            fontSize = 26.sp
         )
     }
 }

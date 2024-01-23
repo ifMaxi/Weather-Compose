@@ -1,7 +1,6 @@
 package com.maxidev.weather.ui.presentation.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,19 +15,17 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.maxidev.weather.R
+import com.maxidev.weather.ui.theme.soraFamily
 
 /**
  * This file contains all the components that will be seen on the main screen.
@@ -49,7 +46,9 @@ fun CityName(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = city
+            text = city,
+            fontFamily = soraFamily,
+            fontSize = 34.sp
         )
     }
 }
@@ -72,10 +71,14 @@ fun MaxAndFeelsTemperature(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "$maxTemp°C"
+                text = "$maxTemp°C",
+                fontFamily = soraFamily,
+                fontSize = 26.sp
             )
             Text(
-                text = "Feels Like: $feelsLike°C"
+                text = "Feels Like: $feelsLike°C",
+                fontFamily = soraFamily,
+                fontSize = 14.sp
 
             )
         }
@@ -96,7 +99,9 @@ fun WeatherCondition(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = condition
+            text = condition,
+            fontFamily = soraFamily,
+            fontSize = 20.sp
         )
     }
 }
@@ -104,7 +109,6 @@ fun WeatherCondition(
 // A row that will show data for some conditions.
 @Composable
 fun CurrentConditions(
-    modifier: Modifier = Modifier,
     uv: String,
     wind: String,
     humidity: String,
@@ -121,15 +125,13 @@ fun CurrentConditions(
         Triple("$pressure mBar", R.drawable.pressure, R.string.pressure),
         Triple("$precipitation mm", R.drawable.precipitation, R.string.precipitation)
     )
-    val shape = RoundedCornerShape(10)
 
     LazyHorizontalGrid(
-        modifier = modifier
+        modifier = //shadowWithShapeModifier
+        Modifier
             .fillMaxWidth()
-            .heightIn(min = 0.dp, max = 240.dp)
-            .shadow(elevation = 6.dp, shape = shape)
-            .clip(shape = shape)
-            .background(MaterialTheme.colorScheme.surfaceVariant),
+            .heightIn(min = 0.dp, max = 240.dp),
+            //.background(MaterialTheme.colorScheme.surfaceVariant),
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalArrangement = Arrangement.Center,
         rows = GridCells.Fixed(2),
@@ -159,10 +161,14 @@ fun CurrentConditions(
                     Spacer(modifier = Modifier.weight(1f))
                     Text(
                         text = cond.first,
+                        fontFamily = soraFamily,
+                        fontSize = 14.sp,
                         modifier = Modifier.align(Alignment.CenterHorizontally)
                     )
                     Text(
                         text = stringResource(id = cond.third),
+                        fontFamily = soraFamily,
+                        fontSize = 14.sp,
                         modifier = Modifier.align(Alignment.CenterHorizontally)
                     )
                     Spacer(modifier = Modifier.weight(1f))
@@ -179,23 +185,18 @@ fun CardTimeConditions(
     icon: String,
     temp: String,
     hour: String,
-    precipitationChance: String,
-    modifier: Modifier = Modifier
+    precipitationChance: String
 ) {
-    val shape = RoundedCornerShape(10)
-
     Column(
-        modifier = modifier
-            .padding(10.dp)
-            .shadow(elevation = 6.dp, shape = shape)
-            .clip(shape = shape)
-            .background(MaterialTheme.colorScheme.surfaceVariant)
+        modifier = Modifier
             .size(height = 140.dp, width = 90.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = hour
+            text = hour,
+            fontFamily = soraFamily,
+            fontSize = 14.sp
         )
         Spacer(modifier = Modifier.weight(1f))
         WeatherIcons(
@@ -203,10 +204,14 @@ fun CardTimeConditions(
             size = DpSize(50.dp, 50.dp)
         )
         Text(
-            text = "$temp°"
+            text = "$temp°",
+            fontFamily = soraFamily,
+            fontSize = 14.sp
         )
         Text(
-            text = "$precipitationChance%"
+            text = "$precipitationChance%",
+            fontFamily = soraFamily,
+            fontSize = 14.sp
         )
     }
 }
@@ -219,18 +224,13 @@ fun NextDaysComponent(
     maxTemp: String,
     date: String,
     condition: String,
-    rainPercent: String,
-    modifier: Modifier = Modifier
+    rainPercent: String
 ) {
-    val shape = RoundedCornerShape(10)
-
     Row(
-        modifier = modifier
+        modifier =
+        Modifier
             .fillMaxWidth()
-            .shadow(elevation = 6.dp, shape = shape)
-            .clip(shape = shape)
-            .background(MaterialTheme.colorScheme.surfaceVariant),
-            //.padding(4.dp),
+            .padding(10.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -246,10 +246,14 @@ fun NextDaysComponent(
                 verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 Text(
-                    text = date
+                    text = date,
+                    fontFamily = soraFamily,
+                    fontSize = 24.sp
                 )
                 Text(
-                    text = condition
+                    text = condition,
+                    fontFamily = soraFamily,
+                    fontSize = 14.sp
                 )
             }
         }
@@ -277,13 +281,19 @@ fun NextDaysComponent(
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Text(
-                    text = "$maxTemp°"
+                    text = "$maxTemp°",
+                    fontFamily = soraFamily,
+                    fontSize = 14.sp
                 )
                 Text(
-                    text = "$minTemp°"
+                    text = "$minTemp°",
+                    fontFamily = soraFamily,
+                    fontSize = 14.sp
                 )
                 Text(
-                    text = "$rainPercent %"
+                    text = "$rainPercent %",
+                    fontFamily = soraFamily,
+                    fontSize = 14.sp
                 )
             }
         }
@@ -295,8 +305,7 @@ fun AstroWeather(
     sunrise: String,
     sunset: String,
     moonrise: String,
-    moonset: String,
-    modifier: Modifier = Modifier
+    moonset: String
 ) {
     val sunMoon = listOf(
         Triple("Sunrise", R.drawable.morning, sunrise),
@@ -304,15 +313,13 @@ fun AstroWeather(
         Triple("Moonrise", R.drawable.evening, moonrise),
         Triple("Moonset", R.drawable.nigth, moonset)
     )
-    val shape = RoundedCornerShape(10)
 
     Column(
-        modifier = modifier
+        modifier = //shadowWithShapeModifier
+        Modifier
             .fillMaxWidth()
-            .height(120.dp)
-            .shadow(elevation = 6.dp, shape = shape)
-            .clip(shape = shape)
-            .background(MaterialTheme.colorScheme.surfaceVariant),
+            .height(120.dp),
+            //.background(MaterialTheme.colorScheme.surfaceVariant),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceAround
     ) {
@@ -328,7 +335,9 @@ fun AstroWeather(
                     verticalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
                     Text(
-                        text = cond.first
+                        text = cond.first,
+                        fontFamily = soraFamily,
+                        fontSize = 16.sp
                     )
                     Image(
                         painter = painterResource(id = cond.second),
@@ -337,7 +346,9 @@ fun AstroWeather(
                             .size(40.dp)
                     )
                     Text(
-                        text = cond.third
+                        text = cond.third,
+                        fontFamily = soraFamily,
+                        fontSize = 14.sp
                     )
                 }
             }

@@ -13,6 +13,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.maxidev.weather.ui.theme.soraFamily
 
 @Composable
 fun WeatherButton(
@@ -32,7 +34,9 @@ fun WeatherButton(
             elevation = ButtonDefaults.elevatedButtonElevation(8.dp)
         ) {
             Text(
-                text = stringResource(id = text)
+                text = stringResource(id = text),
+                fontFamily = soraFamily,
+                fontSize = 14.sp
             )
         }
     }
