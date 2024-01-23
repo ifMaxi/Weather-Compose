@@ -1,6 +1,6 @@
 package com.maxidev.weather.utils
 
-object ClimatePhrases {
+object ClimateUtilities {
     val listOfPhrases = listOf(
         "“There is no such thing as good weather or bad weather. There is only weather and your attitude towards it.” Louise Hay.",
         "“There is no such thing as bad weather, only soft people.” Bill Bowerman.",
@@ -13,4 +13,6 @@ object ClimatePhrases {
         "“I like the idea of giving thanks in the name of the climate.” Yasunari Kawabata.",
         "“The world is not based on logic, it is based on the seven deadly sins and the weather.” Alan Furst."
     ).random()
+
+    val locationList = listOf("Moscow", "Paris", "Buenos Aires", "Las Vegas", "Barcelona")
 }
