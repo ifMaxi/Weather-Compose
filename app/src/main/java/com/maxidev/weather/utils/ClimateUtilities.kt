@@ -14,5 +14,5 @@ object ClimateUtilities {
         "“The world is not based on logic, it is based on the seven deadly sins and the weather.” Alan Furst."
     ).random()
 
-    val locationList = listOf("Moscow", "Paris", "Buenos Aires", "Las Vegas", "Barcelona")
+    val locationList = listOf("Moscow", "Paris", "Buenos Aires", "Las Vegas", "Barcelona", "Brasilia")
 }

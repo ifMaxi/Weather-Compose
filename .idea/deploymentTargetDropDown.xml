@@ -21,22 +21,6 @@
       <entry key="CardTimePreview">
         <State />
       </entry>
-      <entry key="CurrentConditionsPreview">
-        <State>
-          <targetSelectedWithDropDown>
-            <Target>
-              <type value="QUICK_BOOT_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\maxi9\.android\avd\Pixel_7_Pro_API_34.avd" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-01-12T00:21:15.371088100Z" />
-        </State>
-      </entry>
       <entry key="NextDayPreview">
         <State>
           <targetSelectedWithDropDown>
@@ -61,12 +45,12 @@
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\maxi9\.android\avd\Pixel_7_Pro_API_34.avd" />
+                  <value value="C:\Users\maxi9\.android\avd\Android_11.avd" />
                 </Key>
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-01-23T17:10:21.991084700Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-01-24T18:23:39.984628900Z" />
         </State>
       </entry>
     </value>
