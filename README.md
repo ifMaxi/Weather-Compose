@@ -15,8 +15,21 @@ The architecture used for the project was **MVVM (Model - View - ViewModel)**. T
 
 ![MVVM architecture graph](https://github.com/ifMaxi/WeatherCompose/assets/112733459/d3584ce6-40a7-489a-a845-1d98a4cbfe8b)
 
-## Tech/Stack
-**TODO**
+## Language and libraries
+
+- Kotlin
+- Jetpack
+    - Compose
+    - Navigation
+    - ViewModel
+    - Hilt
+- Material Ui 3
+- Flow
+- Retrofit
+- Kotlin Serialization
+- Coil
+- Lottie
+- Mockk
 
 ## Project structure
 **TODO**
