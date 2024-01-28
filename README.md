@@ -9,6 +9,9 @@ The app is made up of two screens:
 
 **NOTE**: Due to limitations of the API, only data from the current day and the next day is shown.
 
+> [!IMPORTANT]
+> In order to obtain the data from the **API** you will need an ***API_KEY*** that you will get from [Weather Api](https://www.weatherapi.com/). Once you obtain the ***API_KEY*** you will need to place it in your ***local.properties*** file. In the ***Build.gradle*** file at the module level, the configuration is already listed.
+
 ## Architecture
 
 The architecture used for the project was **MVVM (Model - View - ViewModel)**. This aims to separate the **UI (View)** from the **business logic (ViewModel)** and **data (Model)**.
