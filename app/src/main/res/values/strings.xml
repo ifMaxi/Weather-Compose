@@ -5,8 +5,9 @@
     <string name="weather_search_screen">Search</string>
     <string name="provide_query">Please enter a location.</string>
     <string name="enter_location">Enter location</string>
-    <string name="re_connect">Reconnect</string>
-    <string name="connection_lost">Lost connection</string>
+    <string name="re_connect">Retry</string>
+    <string name="connection_lost">Houston, we have a problem</string>
+    <string name="stand_by">Enter a location</string>
     <string name="overview">Overview</string>
     <string name="humidity">Humidity</string>
     <string name="uv">UV</string>
