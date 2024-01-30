@@ -47,7 +47,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maxidev.weather.R
-import com.maxidev.weather.data.netwotk.model.Weather
+import com.maxidev.weather.data.network.model.Weather
 import com.maxidev.weather.ui.components.Dividers
 import com.maxidev.weather.ui.presentation.components.AstroWeather
 import com.maxidev.weather.ui.presentation.components.CardTimeConditions
@@ -58,6 +58,7 @@ import com.maxidev.weather.ui.presentation.components.LoadingScreen
 import com.maxidev.weather.ui.presentation.components.MaxAndFeelsTemperature
 import com.maxidev.weather.ui.presentation.components.NextDaysComponent
 import com.maxidev.weather.ui.presentation.components.SectionsWeather
+import com.maxidev.weather.ui.presentation.components.StandByScreen
 import com.maxidev.weather.ui.presentation.components.WeatherCondition
 import com.maxidev.weather.ui.presentation.components.WeatherIcons
 import com.maxidev.weather.ui.theme.soraFamily
@@ -146,7 +147,7 @@ fun WeatherScreen(
     ) { paddingValues ->
         StatusCheck(
             status = uiState,
-            onClick = viewModel::getWeather,
+            onClick = { viewModel.getWeather(query) },
             modifier = Modifier.padding(paddingValues)
         )
     }
@@ -167,6 +168,9 @@ private fun StatusCheck(
         is WeatherStatus.Success -> WeatherInfo(
             weather = status.onSuccess,
             modifier = modifier
+        )
+        is WeatherStatus.StandBy -> StandByScreen(
+            text = R.string.stand_by
         )
     }
 }
@@ -191,7 +195,8 @@ fun WeatherInfo(
     ) {
         Spacer(modifier = Modifier.weight(1f))
         CityName(
-            city = weather.location.name
+            city = weather.location.name,
+            country = weather.location.country
         )
         weather.current.let { info ->
             WeatherIconAndTemps(

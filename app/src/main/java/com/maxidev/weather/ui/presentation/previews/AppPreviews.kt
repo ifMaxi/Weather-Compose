@@ -17,7 +17,10 @@ import com.maxidev.weather.ui.theme.WeatherTheme
 private fun CityPreview() {
     WeatherTheme {
         Surface {
-            CityName(city = "Venado Tuerto")
+            CityName(
+                city = "Venado Tuerto",
+                country = "Argentina"
+            )
         }
     }
 }

@@ -6,8 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maxidev.weather.data.repository.WeatherRepositoryImpl
-import com.maxidev.weather.utils.Constants.DEFAULT_CITY
-import com.maxidev.weather.utils.Constants.THREE_DAYS
+import com.maxidev.weather.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,17 +36,21 @@ class WeatherViewModel @Inject constructor(
         getWeather()
     }
 
-    fun getWeather(query: String = DEFAULT_CITY) {
+    fun getWeather(query: String? = "") {
         viewModelScope.launch {
             _uiState.value = WeatherStatus.Loading
             delay(2500)
             _uiState.value = try {
-                WeatherStatus.Success(
-                    onSuccess = repositoryImpl.repoWeather(
-                        q = query,
-                        days = THREE_DAYS
+                if (query.isNullOrEmpty()) {
+                    WeatherStatus.StandBy
+                } else {
+                    WeatherStatus.Success(
+                        onSuccess = repositoryImpl.repoWeather(
+                            q = query,
+                            days = Constants.THREE_DAYS
+                        )
                     )
-                )
+                }
             } catch (io: IOException) {
                 WeatherStatus.Error(onError = io)
             } catch (http: HttpException) {

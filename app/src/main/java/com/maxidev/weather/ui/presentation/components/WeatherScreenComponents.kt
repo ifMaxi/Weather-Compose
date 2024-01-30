@@ -36,7 +36,8 @@ import com.maxidev.weather.ui.theme.soraFamily
 @Composable
 fun CityName(
     modifier: Modifier = Modifier,
-    city: String
+    city: String,
+    country: String
 ) {
     Row(
         modifier = modifier
@@ -45,11 +46,22 @@ fun CityName(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(
-            text = city,
-            fontFamily = soraFamily,
-            fontSize = 34.sp
-        )
+        Column(
+            modifier = Modifier,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Text(
+                text = city,
+                fontFamily = soraFamily,
+                fontSize = 34.sp
+            )
+            Text(
+                text = country,
+                fontFamily = soraFamily,
+                fontSize = 20.sp
+            )
+        }
     }
 }
 

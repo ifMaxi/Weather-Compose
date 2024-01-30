@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,14 +15,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.maxidev.weather.R
-import com.maxidev.weather.ui.components.WeatherButton
 import com.maxidev.weather.ui.theme.soraFamily
 
-// Simulates an error screen when you do not have internet access.
 @Composable
-fun ErrorScreen(
-    @StringRes errorText: Int,
-    onClick: () -> Unit
+fun StandByScreen(
+    @StringRes text: Int
 ) {
     Column(
         modifier = Modifier
@@ -30,17 +28,17 @@ fun ErrorScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.weight(1f))
-        LottieComponent(animation = R.raw.fail_weather)
+        LottieComponent(
+            animation = R.raw.city_weather,
+            modifier = Modifier
+                .size(250.dp)
+        )
         Text(
-            text = stringResource(id = errorText),
+            text = stringResource(id = text),
             fontFamily = soraFamily,
             fontWeight = FontWeight.Medium,
             fontSize = 24.sp
         )
         Spacer(modifier = Modifier.weight(1f))
-        WeatherButton(
-            text = R.string.re_connect,
-            onClick = onClick
-        )
     }
 }
