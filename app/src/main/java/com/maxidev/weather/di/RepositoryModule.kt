@@ -3,7 +3,7 @@ package com.maxidev.weather.di
 import com.maxidev.weather.data.datasource.WeatherDataSource
 import com.maxidev.weather.data.repository.WeatherRepository
 import com.maxidev.weather.data.repository.WeatherRepositoryImpl
-import com.maxidev.weather.data.netwotk.remote.ApiService
+import com.maxidev.weather.data.network.remote.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

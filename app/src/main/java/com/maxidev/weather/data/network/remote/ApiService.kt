@@ -8,7 +8,7 @@ import retrofit2.http.Query
 interface ApiService {
     @GET(WEATHER)
     suspend fun getWeather(
-        @Query("q") q: String,
+        @Query("q") q: String?,
         @Query("days") days: Int
     ): Weather
 }
