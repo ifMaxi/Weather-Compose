@@ -1,8 +1,8 @@
 package com.maxidev.weather.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import com.maxidev.weather.data.netwotk.remote.ApiKeyInterceptor
-import com.maxidev.weather.data.netwotk.remote.ApiService
+import com.maxidev.weather.data.network.remote.ApiKeyInterceptor
+import com.maxidev.weather.data.network.remote.ApiService
 import com.maxidev.weather.utils.Constants.BASE_URL
 import com.maxidev.weather.utils.Constants.CONTENT_TYPE
 import dagger.Module

@@ -1,6 +1,6 @@
-package com.maxidev.weather.data.netwotk.remote
+package com.maxidev.weather.data.network.remote
 
-import com.maxidev.weather.data.netwotk.model.Weather
+import com.maxidev.weather.data.network.model.Weather
 import com.maxidev.weather.utils.Constants.WEATHER
 import retrofit2.http.GET
 import retrofit2.http.Query

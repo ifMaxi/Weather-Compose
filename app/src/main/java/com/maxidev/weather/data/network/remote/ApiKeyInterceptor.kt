@@ -1,4 +1,4 @@
-package com.maxidev.weather.data.netwotk.remote
+package com.maxidev.weather.data.network.remote
 
 import com.maxidev.weather.BuildConfig
 import okhttp3.Interceptor
