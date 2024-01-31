@@ -81,7 +81,9 @@ com.maxidev.weather
 |   |     ├── components
 |   |            ├── ErrorScreen
 |   |            ├── LoadingScreen
+|   |            ├── LottieComponent
 |   |            ├── ReusableWeatherComponents
+|   |            ├── StandByScreen
 |   |            ├── WeatherScreenComponents
 |   |
 |   |     ├── previews
@@ -108,4 +110,29 @@ com.maxidev.weather
 ```
 
 ## Screenshots
-**TODO**
+
+### Light Mode
+
+| Welcome Screen  | StandBy |
+| ------------- | ------------ |
+| <img src="https://github.com/ifMaxi/WeatherCompose/assets/112733459/9ce740e8-ac27-4471-8629-1b153f163e71" width="290" height="600">  | <img src="https://github.com/ifMaxi/WeatherCompose/assets/112733459/0c1a0157-74af-4769-9a15-18fef090e77d" width="290" height="600"> |
+
+| Error Screen | Main Screen |
+| ------------ | ------------ |
+| <img src="https://github.com/ifMaxi/WeatherCompose/assets/112733459/d18d5180-f66e-4b33-af7b-c006c7b99046" width="290" height="600"> | <img src="https://github.com/ifMaxi/WeatherCompose/assets/112733459/e3d38a1e-ca15-4eb5-bdc8-7404258e69e2" width="290" height="600"> |
+
+### Dark Mode
+
+| Welcome Screen  | StandBy |
+| ------------- | ------------ |
+| <img src="https://github.com/ifMaxi/WeatherCompose/assets/112733459/19695209-88b1-4dff-a9cd-1b63271229ca" width="290" height="600">  | <img src="https://github.com/ifMaxi/WeatherCompose/assets/112733459/88ac217b-4597-4b62-ba17-86c319bd321f" width="290" height="600"> |
+
+| Error Screen | Main Screen |
+| ------------ | ------------ |
+| <img src="https://github.com/ifMaxi/WeatherCompose/assets/112733459/114f7677-106d-4348-afa7-cc19598c0912" width="290" height="600"> | <img src="https://github.com/ifMaxi/WeatherCompose/assets/112733459/7525d845-ced9-48dd-aa06-00300f46c8cd" width="290" height="600"> |
+
+## Demo
+
+| Welcome Screen  | Main Screen | Dark Mode |
+| ------------- | ------------ | ------------ |
+| <img src="https://github.com/ifMaxi/WeatherCompose/assets/112733459/4acb2163-d419-4812-a89f-0eb2d3e817d1" width="290" height="600">  | <img src="https://github.com/ifMaxi/WeatherCompose/assets/112733459/ccdb40bb-7da1-46c2-825a-23d3a82549e8" width="290" height="600"> | <img src="https://github.com/ifMaxi/WeatherCompose/assets/112733459/5c46d910-5407-472f-b033-6e7a1e48d4a3" width="290" height="600"> |
