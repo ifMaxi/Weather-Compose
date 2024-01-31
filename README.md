@@ -5,13 +5,17 @@ A weather app that provides real-time information about the location provided.
 The app is made up of two screens:
 
 - A ***welcome screen*** that welcomes you when you enter the app **(for demonstration the app shows this screen every time it starts, in a production app this screen should be shown only once.)**
-- The ***main screen*** which will show information obtained from the Api [Weather Api](https://www.weatherapi.com/) such as current weather, humidity, sunrise and sunset, a list with hourly data of the day's weather and the next day's weather
+- The ***main screen*** which will show information obtained from [Weather Api](https://www.weatherapi.com/) such as current weather, sunrise and sunset, a list with hourly data of the day's weather and the next day's weather
 
 > [!NOTE]
 > Due to limitations of the API, only data from the current day and the next day is shown.
 
 > [!IMPORTANT]
-> In order to obtain the data from the **API** you will need an ***API_KEY*** that you will get from [Weather Api](https://www.weatherapi.com/). Once you obtain the ***API_KEY*** you will need to place it in your ***local.properties*** file. In the ***Build.gradle*** file at the module level, the configuration is already listed.
+> When you have the project in Android Studio and Gradle finishes synchronizing, you will need an ***API KEY*** that you can obtain by registering from the following link [Weather Api](https://www.weatherapi.com/).
+>
+> Once you finish, you will need to place the **KEY** in your ***"local.properties"*** file with the name **"KEY"** and import it into the ***"ApiKeyInterceptor"*** file that you will find in the following field: ***main/java/com/maxidev/weather/data/network/remote/ApiKeyInterceptor***.
+>
+> The configuration in the **Build.Gradle** file at the App level has already been done.
 
 ## Architecture
 
@@ -21,93 +25,19 @@ The architecture used for the project was **MVVM (Model - View - ViewModel)**. T
 
 ## Language and libraries
 
-- Kotlin
+- [Kotlin](https://kotlinlang.org/docs/home.html)
 - Jetpack
-    - Compose
-    - Navigation
-    - ViewModel
-    - Hilt
-- Material Ui 3
-- Flow
-- Retrofit
-- Kotlin Serialization
-- Coil
-- Lottie
-- Mockk
-
-## Project structure
-
-```
-com.maxidev.weather
-|
-├── data
-|   |
-|   ├── datasource
-|   |     ├── WeatherDataSource
-|   |
-|   ├── network
-|   |     ├── model
-|   |           ├── Astro
-|   |           ├── Condition
-|   |           ├── Current
-|   |           ├── Day
-|   |           ├── Forecast
-|   |           ├── ForecastDay
-|   |           ├── Hour
-|   |           ├── Location
-|   |           ├── Weather
-|   |     ├── remote
-|   |           ├── ApiKeyInterceptor
-|   |           ├── ApiService
-|   |
-|   ├── repository
-|   |     ├── WeatherRepository
-|   |     ├── WeatherRepositoryImpl
-|
-├── di
-|   ├── AppModule
-|   ├── RepositoryModule
-|
-├── navigation
-|   ├── Destinations
-|   ├── NavGraph
-|
-├── ui
-|   ├── components
-|   |     ├── Dividers
-|   |     ├── WeatherButton
-|   |
-|   ├── presentation
-|   |     ├── components
-|   |            ├── ErrorScreen
-|   |            ├── LoadingScreen
-|   |            ├── LottieComponent
-|   |            ├── ReusableWeatherComponents
-|   |            ├── StandByScreen
-|   |            ├── WeatherScreenComponents
-|   |
-|   |     ├── previews
-|   |            ├── AnnotationPreview
-|   |            ├── AppPreview
-|   |
-|   |     ├── WeatherScreen
-|   |     ├── WeatherStartScreen
-|   |     ├── WeatherStatus
-|   |     ├── WeatherViewModel
-|   |
-|   ├── theme
-|   |     ├── Color
-|   |     ├── Theme
-|   |     ├── Type
-|
-├── utils
-|   ├── ClimateUtilities
-|   ├── Constants
-|   ├── DateTimeUtils
-|
-├── AppApplication
-├── MainActivity
-```
+    - [Compose](https://developer.android.com/jetpack/compose?hl=en)
+    - [Navigation](https://developer.android.com/guide/navigation?hl=en)
+    - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel?hl=en)
+    - [Hilt](https://developer.android.com/training/dependency-injection/hilt-android?hl=en)
+- [Material Ui 3](https://m3.material.io/)
+- [Flow](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/)
+- [Retrofit](https://square.github.io/retrofit/)
+- [Kotlin Serialization](https://kotlinlang.org/docs/serialization.html)
+- [Coil](https://coil-kt.github.io/coil/)
+- [Lottie](https://lottiefiles.com/)
+- [Mockk](https://mockk.io/)
 
 ## Screenshots
 
